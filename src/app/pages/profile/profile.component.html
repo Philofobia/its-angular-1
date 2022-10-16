@@ -1,0 +1,541 @@
+<!-- <div class="d-flex justify-content-center">
+  <div class="container p-5 m-2 border border-dark rounded">
+    <form
+      class="needs-validation"
+      novalidate
+      [class.was-validated]="showErrors"
+      #sendForm="ngForm"
+    >
+      <input
+        type="radio"
+        name="personType"
+        checked
+        id="personType1"
+        (click)="personType(1)"
+        class="personType m-2"
+        value="PF"
+        (change)="cleanFields()"
+        [(ngModel)]="jsonIn.personType"
+      />
+      <label class="form-check-label col-form-label" for="personType1"
+        >Persona fisica</label
+      >
+      <input
+        type="radio"
+        name="personType"
+        (click)="personType(0)"
+        class="personType m-2"
+        id="personType2"
+        (change)="cleanFields()"
+        value="PG"
+        [(ngModel)]="jsonIn.personType"
+      />
+      <label class="form-check-label col-form-label" for="personType2"
+        >Persona giuridica</label
+      >
+
+      <div *ngIf="pFisica === true" class="form-group row">
+        <select
+          id="sex"
+          [(ngModel)]="jsonIn.sex"
+          name="sex"
+          required
+          class="col-1 my-2"
+        >
+          <option value="M">Sig.</option>
+          <option value="F">Sig.ra</option>
+        </select>
+        <label for="name" class="col-form-label">Nome:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Inserisci nome"
+          name="name"
+          [(ngModel)]="jsonIn.name"
+          required
+        />
+        <label for="surname" class="col-form-label">Cognome:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="surname"
+          name="surname"
+          placeholder="Inserisci cognome"
+          [(ngModel)]="jsonIn.surname"
+          required
+        />
+        <label for="cFiscale" class="col-form-label">Codice Fiscale:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cFiscale"
+          name="cFiscale"
+          placeholder="Inserisci codice fiscale"
+          [(ngModel)]="jsonIn.cFiscale"
+          required
+        />
+        <label for="plus18" class="col-form-label"
+          >Conferma maggiore età:
+        </label>
+        <input
+          type="checkbox"
+          id="plus18"
+          value="plus18"
+          name="plus18"
+          [(ngModel)]="jsonIn.plus18"
+          required
+        />
+      </div>
+
+      <div *ngIf="pFisica === false" class="form-group row">
+        <label for="rSocial" class="col-form-label">Ragione Sociale:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="rSocial"
+          name="rSocial"
+          placeholder="Inserisci ragione sociale"
+          [(ngModel)]="jsonIn.rSocial"
+          required
+        />
+        <label for="pIva" class="col-form-label">P. Iva:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="pIva"
+          name="pIva"
+          placeholder="Inserisci partita iva"
+          [(ngModel)]="jsonIn.pIva"
+          required
+        />
+      </div>
+
+      <div id="general-info" class="form-group row">
+        <label for="email" class="col-form-label">Email: </label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Inserisci email"
+          [(ngModel)]="jsonIn.email"
+          required
+        />
+        <label for="phone" class="col-form-label">Telefono: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="phone"
+          name="phone"
+          placeholder="Inserisci telefono"
+          maxlength="10"
+          [(ngModel)]="jsonIn.phone"
+          required
+        />
+        <label for="pec" class="col-form-label">PEC: </label>
+        <input
+          type="email"
+          class="form-control"
+          id="pec"
+          name="pec"
+          placeholder="Inserisci email"
+          [(ngModel)]="jsonIn.pec"
+          required
+        />
+        <label for="fax" class="col-form-label">FAX: </label>
+        <input
+          type="number"
+          class="form-control"
+          id="fax"
+          name="fax"
+          placeholder="opzionale"
+          maxlength="10"
+          [(ngModel)]="jsonIn.fax"
+        />
+      </div>
+
+      <div id="address-container" class="form-group row">
+        <select id="strada" class="my-2 col-3">
+          <option value="Via">VIA</option>
+          <option value="Piazza">PIAZZA</option>
+          <option value="Corso">CORSO</option>
+          <option value="Borgata">BORGATA</option>
+          <option value="Frazione">FRAZIONE</option>
+        </select>
+        <label for="address">Indirizzo: </label>
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          name="address"
+          placeholder="Inserisci indirizzo .. "
+          [(ngModel)]="jsonIn.address"
+          required
+        />
+        <label for="civico" class="col-form-label">N° </label>
+        <input
+          type="number"
+          class="form-control"
+          id="civico"
+          name="civico"
+          placeholder="CIV"
+          [(ngModel)]="jsonIn.civico"
+          required
+        />
+        <label for="CAP" class="col-form-label">CAP </label>
+        <input
+          type="number"
+          class="form-control"
+          id="CAP"
+          name="CAP"
+          placeholder="CAP"
+          maxlength="5"
+          [(ngModel)]="jsonIn.cap"
+          required
+        />
+        <label for="comune" class="col-form-label">Comune: </label>
+        <input
+          type="text"
+          class="form-control"
+          id="comune"
+          name="comune"
+          placeholder="Inserisci comune"
+          [(ngModel)]="jsonIn.comune"
+          required
+        />
+
+        <label for="prov" class="col-form-label">Provincia: </label>
+        <select
+          id="prov"
+          [(ngModel)]="jsonIn.prov"
+          name="prov"
+          required
+          class="my-2"
+        >
+          <option *ngFor="let prov of provs" value="{{ prov.id }}">
+            {{ prov.location }}
+          </option>
+        </select>
+
+        <label for="state" class="col-form-label">Stato: </label>
+        <select
+          id="state"
+          name="state"
+          [(ngModel)]="jsonIn.state"
+          required
+          class="my-2"
+        >
+          <option *ngFor="let stato of stati" value="{{ stato.id }}">
+            {{ stato.location }}
+          </option>
+        </select>
+      </div>
+
+      <div id="insurance" class="form-group row">
+        <label for="insur" class="col-form-label"
+          >Scegli un tipo di assicurazione:</label
+        >
+        <select
+          class="my-2"
+          multiple
+          id="insur"
+          name="insur"
+          [(ngModel)]="jsonIn.insur"
+          required
+        >
+          <option value="auto">Auto</option>
+          <option value="vita">Vita</option>
+          <option value="salute">Salute</option>
+        </select>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <button
+          class="btn btn-lg btn-primary col-3 my-2 d-flex justify-content-center"
+          type="button"
+          (click)="signIn()"
+        >
+          SEND
+        </button>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+<h1>Profilo Cliente</h1>
+<pre>{{ jsonIn | json }}</pre>
+
+<!-- SCELTA AZIENDA/PERSONA -->
+<form
+  class="container g-r needs-validation"
+  novalidate
+  [class.was-validated]="showErrors"
+  #sendForm="ngForm"
+>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="clientType"
+      id="clientTypePF"
+      value="PF"
+      (change)="cleanFields()"
+      [(ngModel)]="jsonIn.clientType"
+    />
+    <label class="form-check-label" for="clientTypePF"> Persona fisica </label>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="clientType"
+      id="clientTypePG"
+      value="PG"
+      (change)="cleanFields()"
+      [(ngModel)]="jsonIn.clientType"
+    />
+    <label class="form-check-label" for="clientTypePG">
+      Persona giuridica
+    </label>
+  </div>
+
+  <!-- PERSONA FISICA -->
+  <div class="row" *ngIf="jsonIn.clientType === 'PF'">
+    <div class="col-md-2">
+      <label for="sex" class="form-label">Sesso:</label>
+      <select
+        id="sex"
+        name="sex"
+        class="form-control"
+        [(ngModel)]="jsonIn.sex"
+        required
+      >
+        <option value="M">Sig.</option>
+        <option value="F">Sig.ra</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <label for="name" class="form-label">Nome:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        [(ngModel)]="jsonIn.name"
+        required
+      />
+    </div>
+    <div class="col-md-5">
+      <label for="surname" class="form-label">Cognome:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="surname"
+        name="surname"
+        [(ngModel)]="jsonIn.surname"
+        required
+      />
+    </div>
+    <div class="col-md-8">
+      <label for="cFiscale" class="form-label">Codice Fiscale:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cFiscale"
+        name="cFiscale"
+        [(ngModel)]="jsonIn.cFiscale"
+        required
+      />
+    </div>
+    <div class="col-md-4 mt-4 pt-3 text-center">
+      <label for="plus18" class="form-label">Sei maggiorenne?⠀</label>
+      <input
+        type="checkbox"
+        id="plus18"
+        name="plus18"
+        [(ngModel)]="jsonIn.plus18"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- PERSONA GIURIDICA -->
+  <div class="row" *ngIf="jsonIn.clientType === 'PG'">
+    <div class="col-md-7">
+      <label for="rSocial" class="form-label">Ragione sociale:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="rSocial"
+        name="rSocial"
+        [(ngModel)]="jsonIn.rSocial"
+        required
+      />
+    </div>
+    <div class="col-md-5">
+      <label for="pIva" class="form-label">Partita IVA:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="pIva"
+        name="pIva"
+        [(ngModel)]="jsonIn.pIva"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- CAMPI IN COMUNE -->
+  <div class="row">
+    <div class="col-md-6">
+      <label for="phone" class="form-label">Telefono:</label>
+      <input
+        type="tel"
+        pattern="[0-9]{10}"
+        class="form-control"
+        id="phone"
+        name="phone"
+        [(ngModel)]="jsonIn.phone"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label">E-mail:</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        [(ngModel)]="jsonIn.email"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="pec" class="form-label">PEC:</label>
+      <input
+        type="email"
+        class="form-control"
+        id="pec"
+        name="pec"
+        [(ngModel)]="jsonIn.pec"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="fax" class="form-label">FAX:</label>
+      <input
+        type="tel"
+        pattern="[0-9]{10}"
+        class="form-control"
+        id="fax"
+        name="fax"
+        [(ngModel)]="jsonIn.fax"
+        required
+      />
+    </div>
+    <div class="col-md-2">
+      <label for="street" class="form-label">⠀</label>
+      <select
+        class="form-control"
+        [(ngModel)]="jsonIn.street"
+        id="street"
+        name="street"
+        required
+      >
+        <option value="Via">VIA</option>
+        <option value="Piazza">PIAZZA</option>
+        <option value="Corso">CORSO</option>
+        <option value="Borgata">BORGATA</option>
+        <option value="Frazione">FRAZIONE</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <label for="address" class="form-label">Indirizzo:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="address"
+        name="address"
+        [(ngModel)]="jsonIn.address"
+        required
+      />
+    </div>
+    <div class="col-md-3">
+      <label for="comune" class="form-label">Comune:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="comune"
+        name="comune"
+        [(ngModel)]="jsonIn.comune"
+        required
+      />
+    </div>
+    <div class="col-md-2">
+      <label for="cap" class="form-label">CAP:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cap"
+        name="cap"
+        pattern="[0-9]{5}"
+        [(ngModel)]="jsonIn.cap"
+        required
+      />
+    </div>
+    <div class="col-md-2">
+      <label for="prov" class="form-label">Provincia: </label>
+      <select
+        id="prov"
+        [(ngModel)]="jsonIn.prov"
+        name="prov"
+        required
+        class="form-control"
+        required
+      >
+        <option *ngFor="let prov of provs" value="{{ prov.id }}">
+          {{ prov.location }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="state" class="form-label">Stato: </label>
+      <select
+        id="state"
+        name="state"
+        [(ngModel)]="jsonIn.state"
+        required
+        class="form-control"
+        required=""
+      >
+        <option *ngFor="let stato of stati" value="{{ stato.id }}">
+          {{ stato.location }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="insur" class="form-label"
+        >Scegli un tipo di assicurazione:</label
+      >
+      <select
+        class="form-control"
+        multiple
+        id="insur"
+        name="insur"
+        [(ngModel)]="jsonIn.insur"
+        required
+      >
+        <option value="auto">Auto</option>
+        <option value="vita">Vita</option>
+        <option value="salute">Salute</option>
+      </select>
+    </div>
+  </div>
+
+  <!--BOTTONE INVIO-->
+  <div class="col-md-12 mt-5 text-center">
+    <button class="btn btn-primary" type="submit" (click)="signIn()">
+      Submit form
+    </button>
+  </div>
+</form>
