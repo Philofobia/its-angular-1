@@ -63,12 +63,23 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  signIn() {
+  submitForm() {
     if (this.sendForm.form.invalid) {
       this.showErrors = true;
     } else {
       console.log(this.jsonIn);
     }
+  }
+
+  saveJson() {
+    const jsonIn = JSON.parse(JSON.stringify(this.jsonIn));
+    if(jsonIn.tipoCliente === 'PF') {
+      delete jsonIn.ragioneSociale;
+    } else if(jsonIn.tipoCliente === 'PG') {
+      delete jsonIn.nome;
+      delete jsonIn.cognome;
+    } 
+    this.submitForm()
   }
 }
 

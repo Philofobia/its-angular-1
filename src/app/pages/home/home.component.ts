@@ -1,34 +1,24 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
-  jsonIn = {
-    tipoCliente: 'PF',
-    nome: 'nome',
-    cognome: 'cognome',
-    ragioneSociale: 'ragione',
+export class HomeComponent implements OnInit {
+  drinks = [];
+  constructor(private httpClient: HttpClient) { }
+  
+  ngOnInit(): void {
+    this.httpClient
+    .get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a`)
+    .subscribe((response: any) => {
+      this.drinks = response.drinks;
+    })
   }
+}
 
-  pulisciDenominazione() {
-    if(this.jsonIn.tipoCliente === 'PF') {
-      this.jsonIn.ragioneSociale = '';
-    } else if(this.jsonIn.tipoCliente === 'PG') {
-      this.jsonIn.nome = '';
-      this.jsonIn.cognome = '';
-    } 
-  }
-
-  salva() {
-    const jsonIn = JSON.parse(JSON.stringify(this.jsonIn));
-    if(jsonIn.tipoCliente === 'PF') {
-      delete jsonIn.ragioneSociale;
-    } else if(jsonIn.tipoCliente === 'PG') {
-      delete jsonIn.nome;
-      delete jsonIn.cognome;
-    } 
-    // chiamataBackend(jsonIn);
-  }
+interface drink {
+  idDrink: string,
+  nameDrink: string,
+  imgDrink: string,
 }
