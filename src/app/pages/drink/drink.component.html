@@ -1,18 +1,29 @@
-<div class="card" style="width: 30rem">
+<div class="card" style="width: 30rem" *ngIf="drink.drinkIngr.length !== 0">
   <img
     class="card-img-top"
-    src="{{ drink[0].strDrinkThumb }}"
-    alt={{drink[0].strDrink}}
+    src="{{ drink.strDrinkThumb }}"
+    alt="{{ drink.strDrink }}"
   />
   <div class="card-body">
-    <h5 class="card-title">{{ drink[0].strDrink }}</h5>
-    <p class="card-text">
-      {{ drink[0].strInstructionsIT }}
+    <h5 class="card-title">{{ drink.strDrink }}</h5>
+    <p class="card-text" #drinkDescr>
+      {{ drink.drinkInstruction[0].langDes }}
     </p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Ingrediente 1</li>
-    <li class="list-group-item">Ingrediente 2</li>
-    <li class="list-group-item">Ingrediente 3</li>
+    <li class="list-group-item" *ngFor="let dIng of drink.drinkIngr">
+      {{ dIng.name }} : {{ dIng.measure }}
+    </li>
   </ul>
 </div>
+<ul class="list-group list-group-horizontal">
+  <li
+    class="list-group-item"
+    *ngFor="let dIns of drink.drinkInstruction; let i = index"
+    (click)="changeLanguage(i)"
+    style="cursor:pointer"
+    [class.disabled]="0"
+  >
+    {{ dIns.name }}
+  </li>
+</ul>

@@ -21,7 +21,7 @@
 <div class="d-flex flex-row flex-wrap justify-content-between">
   <div
     *ngFor="let drink of searchDrinks"
-    style="width: 15rem"
+    style="width: 15rem; cursor: pointer"
     [routerLink]="'/drink/' + drink['idDrink']"
   >
     <div class="card m-2" id="{{ drink['idDrink'] }}">
@@ -37,7 +37,7 @@
 <div class="d-flex flex-row flex-wrap justify-content-between">
   <div
     *ngFor="let drink of drinks"
-    style="width: 15rem"
+    style="width: 15rem; cursor: pointer"
     [routerLink]="'/drink/' + drink.idDrink"
   >
     <div class="card m-2" id="{{ drink['idDrink'] }}">
