@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-drink',
@@ -8,14 +9,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DrinkComponent implements OnInit {
   constructor(private route: ActivatedRoute, private httpClient: HttpClient) {}
-  drink = {};
+  drink: any;
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('idDrink')!;
+    const id = this.route.snapshot.params['idDrink']!; 
     this.httpClient
-      .get(`www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+      .get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
       .subscribe((response: any) => {
-        this.drink = response.drink;
-        console.log(this.drink)
+        this.drink = response.drinks;
       });
   }
 }

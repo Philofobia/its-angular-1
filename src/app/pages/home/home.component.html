@@ -1,8 +1,8 @@
 <h1 class="text-center"> DRINKS </h1>
 <div class="d-flex flex-row flex-wrap justify-content-between">
 <div *ngFor="let drink of drinks" style="width: 18rem;" 
-[routerLink]="'/drink/' + drink['idDrinks']">
-  <div class="card m-2" id="{{ drink['idDrinks'] }}" >
+[routerLink]="'/drink/' + drink['idDrink']">
+  <div class="card m-2" id="{{ drink['idDrink'] }}" >
     <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
     <div class="card-body">
       <h5 class="card-title">{{ drink["strDrink"] }}</h5>
