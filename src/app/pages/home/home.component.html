@@ -1,13 +1,51 @@
-<h1 class="text-center"> DRINKS </h1>
+<h1 class="text-center">DRINKS</h1>
+<div class="input-group">
+  <input
+    type="search"
+    name="searcInput"
+    id="searchInput"
+    [(ngModel)]="jsonIn.searchInput"
+    class="form-control rounded"
+    placeholder="Search"
+    aria-label="Search"
+    aria-describedby="search-addon"
+  />
+  <button
+    type="button"
+    class="btn btn-outline-primary"
+    (click)="handleSearch()"
+  >
+    search
+  </button>
+</div>
 <div class="d-flex flex-row flex-wrap justify-content-between">
-<div *ngFor="let drink of drinks" style="width: 18rem;" 
-[routerLink]="'/drink/' + drink['idDrink']">
-  <div class="card m-2" id="{{ drink['idDrink'] }}" >
-    <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
-    <div class="card-body">
-      <h5 class="card-title">{{ drink["strDrink"] }}</h5>
-      <p class="card-text">Bicchiere: {{ drink["strGlass"] }}</p>
+  <div
+    *ngFor="let drink of searchDrinks"
+    style="width: 15rem"
+    [routerLink]="'/drink/' + drink['idDrink']"
+  >
+    <div class="card m-2" id="{{ drink['idDrink'] }}">
+      <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
+      <div class="card-body">
+        <h5 class="card-title">{{ drink["strDrink"] }}</h5>
+        <p class="card-text">Bicchiere: {{ drink["strGlass"] }}</p>
+      </div>
     </div>
   </div>
 </div>
+<hr />
+<div class="d-flex flex-row flex-wrap justify-content-between">
+  <div
+    *ngFor="let drink of drinks"
+    style="width: 15rem"
+    [routerLink]="'/drink/' + drink.idDrink"
+  >
+    <div class="card m-2" id="{{ drink['idDrink'] }}">
+      <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
+      <div class="card-body">
+        <h5 class="card-title">{{ drink["strDrink"] }}</h5>
+        <p class="card-text">Bicchiere: {{ drink["strGlass"] }}</p>
+      </div>
+    </div>
+  </div>
 </div>
