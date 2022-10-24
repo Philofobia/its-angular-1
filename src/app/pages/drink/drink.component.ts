@@ -10,17 +10,28 @@ export class DrinkComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private httpClient: HttpClient) {}
   drink: any = {
     drinkIngr: [],
-    drinkInstruction: []
+    drinkInstruction: [],
   };
+  switchLanguage: boolean[] = []
 
   @ViewChild('drinkDescr') drinkDescrizione!: ElementRef;
   
   ngAfterViewInit = ():void => {
     // this.drinkDescrizione.nativeElement.textContent = this.drink.drinkInstruction[0].langDes;
   }
-
-  changeLanguage = (input:number):void => {
+  changeSwitch = (input: number) => {
+    for(let i = 0; i < this.drink.drinkInstruction.length; i++) {
+      if(i === input) {
+        this.switchLanguage[input] = true
+      } else {
+        this.switchLanguage[i] = false
+      }
+    }
+    console.log(this.switchLanguage)
+  } 
+  changeLanguage = (input:number) => {
     this.drinkDescrizione.nativeElement.textContent = this.drink.drinkInstruction[`${input}`].langDes;
+    this.changeSwitch(input)
   }
 
   handleMapping = ():void => {

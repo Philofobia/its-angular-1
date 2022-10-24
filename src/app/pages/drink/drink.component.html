@@ -22,7 +22,7 @@
     *ngFor="let dIns of drink.drinkInstruction; let i = index"
     (click)="changeLanguage(i)"
     style="cursor:pointer"
-    [class.disabled]="0"
+    [class.disabled]="switchLanguage[i]"
   >
     {{ dIns.name }}
   </li>
