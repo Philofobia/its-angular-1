@@ -9,14 +9,20 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { DrinkComponent } from './pages/drink/drink.component';
- 
+import { ApiService } from './_service/api.service';
+import { IngredientComponent } from './pages/Ingredient/ingredient.component';
+import { SearchComponent } from './pages/Search/search.component';
+import { SearchDoubleComponent } from './pages/SearchDouble/searchDouble.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
     ProfileComponent,
-    DrinkComponent
+    DrinkComponent,
+    SearchComponent,
+    SearchDoubleComponent,
+    IngredientComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,7 @@ import { DrinkComponent } from './pages/drink/drink.component';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

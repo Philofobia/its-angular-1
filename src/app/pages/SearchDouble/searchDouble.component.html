@@ -1,0 +1,32 @@
+<h1 class="text-center">SEARCH</h1>
+<div class="row">
+  <div class="form-outline col-md-6">
+    <label class="form-label" for="searchDrink">Cerca i drink:</label>
+    <input
+      type="text"
+      id="searchDrink"
+      class="form-control"
+      name="searchDrink"
+      placeholder="Cerca"
+      [(ngModel)]="jsonIn.inputDrink"
+    />
+  </div>
+  <div class="form-outline col-md-6">
+    <label class="form-label" for="filterIngredient"
+      >Con questo ingrediente:</label
+    >
+    <input
+      type="text"
+      id="filterIngredient"
+      class="form-control"
+      name="filterIngredient"
+      placeholder="Filtra"
+      [(ngModel)]="jsonIn.inputIngr"
+    />
+  </div>
+  <div class="mt-3 text-center">
+    <button type="button" class="btn btn-primary btn-lg col-md-2" (click)="handleSubmit()">
+      CERCA
+    </button>
+  </div>
+</div>

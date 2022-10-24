@@ -1,0 +1,67 @@
+<h1 class="text-center">CERCA UN DRINK</h1>
+<label class="form-label" for="searchInputDrink">Cerca un drink dal nome</label>
+<div class="input-group form-outline">
+  <input
+    type="search"
+    name="searchInputDrink"
+    id="searchInputDrink"
+    [(ngModel)]="jsonIn.searchInputDrink"
+    class="form-control rounded"
+    placeholder="Search drink by name"
+    aria-label="Search"
+    aria-describedby="search-addon"
+  />
+  <button
+    type="button"
+    class="btn btn-outline-primary"
+    (click)="handleSearchDrink()"
+  >
+    search
+  </button>
+</div>
+<div class="d-flex flex-row flex-wrap justify-content-between">
+  <div
+    *ngFor="let drink of searchDrinks"
+    style="width: 15rem; cursor: pointer"
+    [routerLink]="'/drink/' + drink['idDrink']"
+  >
+    <div class="card m-2" id="{{ drink['idDrink'] }}">
+      <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
+      <div class="card-body">
+        <h5 class="card-title">{{ drink["strDrink"] }}</h5>
+        <p class="card-text">Bicchiere: {{ drink["strGlass"] }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr />
+<label class="form-label" for="searchInputIng"
+  >Cerca un drink in base agli ingredienti</label
+>
+<select
+  class="form-select"
+  aria-label="searchInputIng"
+  name="searchInputDrink"
+  id="searchInputDrink"
+  [(ngModel)]="jsonIn.searchInputIngr"
+  (change)="handleSearchIngr()"
+>
+  <option *ngFor="let ingr of ingredients" value="{{ ingr }}">
+    {{ ingr }}
+  </option>
+</select>
+<div class="d-flex flex-row flex-wrap justify-content-between">
+  <div
+    *ngFor="let drink of searchDrinksIng"
+    style="width: 15rem; cursor: pointer"
+    [routerLink]="'/drink/' + drink['idDrink']"
+  >
+    <div class="card m-2" id="{{ drink['idDrink'] }}">
+      <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
+      <div class="card-body">
+        <h5 class="card-title">{{ drink["strDrink"] }}</h5>
+        <p class="card-text">Bicchiere: {{ drink["strGlass"] }}</p>
+      </div>
+    </div>
+  </div>
+</div>

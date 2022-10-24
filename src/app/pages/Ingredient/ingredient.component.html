@@ -1,0 +1,22 @@
+<h1 class="text-center">ALL DRINKS WITH THE {{ nameIng }} INGREDIENT</h1>
+<div
+  class="d-flex flex-row flex-wrap justify-content-center"
+  *ngIf="sameIngrDrinks.length !== 0"
+>
+  <div
+    class="card m-2"
+    style="width: 30rem"
+    style="width: 15rem; cursor: pointer"
+    *ngFor="let drink of sameIngrDrinks"
+    [routerLink]="'/drink/' + drink.idDrink"
+  >
+    <img
+      class="card-img-top"
+      src="{{ drink.strDrinkThumb }}"
+      alt="{{ drink.strDrink }}"
+    />
+    <div class="card-body">
+      <h5 class="card-title">{{ drink.strDrink }}</h5>
+    </div>
+  </div>
+</div>

@@ -11,7 +11,12 @@
     </p>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let dIng of drink.drinkIngr">
+    <li
+      class="list-group-item"
+      *ngFor="let dIng of drink.drinkIngr"
+      [routerLink]="'/ingredient/' + dIng.name"
+      style="cursor: pointer"
+    >
       {{ dIng.name }} : {{ dIng.measure }}
     </li>
   </ul>
@@ -21,7 +26,7 @@
     class="list-group-item"
     *ngFor="let dIns of drink.drinkInstruction; let i = index"
     (click)="changeLanguage(i)"
-    style="cursor:pointer"
+    style="cursor: pointer"
     [class.disabled]="switchLanguage[i]"
   >
     {{ dIns.name }}

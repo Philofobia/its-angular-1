@@ -1,39 +1,42 @@
-<h1 class="text-center">DRINKS</h1>
-<div class="input-group">
-  <input
-    type="search"
-    name="searcInput"
-    id="searchInput"
-    [(ngModel)]="jsonIn.searchInput"
-    class="form-control rounded"
-    placeholder="Search"
-    aria-label="Search"
-    aria-describedby="search-addon"
-  />
+<div class="d-flex flex-row flex-wrap justify-content-center">
   <button
     type="button"
-    class="btn btn-outline-primary"
-    (click)="handleSearch()"
+    class="btn btn-primary btn-lg btn-block m-5"
+    [routerLink]="'/search'"
   >
-    search
+    VAI ALLA PAGINA SEARCH
   </button>
 </div>
-<div class="d-flex flex-row flex-wrap justify-content-between">
+<h2 class="text-center">RANDOM DRINK</h2>
+<div class="d-flex flex-row flex-wrap justify-content-center">
   <div
-    *ngFor="let drink of searchDrinks"
     style="width: 15rem; cursor: pointer"
-    [routerLink]="'/drink/' + drink['idDrink']"
+    [routerLink]="'/drink/' + drink.idDrink"
   >
-    <div class="card m-2" id="{{ drink['idDrink'] }}">
-      <img src="{{ drink['strDrinkThumb'] }}" class="card-img-top" width="20" />
+    <div class="card m-2" id="{{ drink.idDrink }}">
+      <img src="{{ drink.strDrinkThumb }}" class="card-img-top" width="20" />
       <div class="card-body">
-        <h5 class="card-title">{{ drink["strDrink"] }}</h5>
-        <p class="card-text">Bicchiere: {{ drink["strGlass"] }}</p>
+        <h5 class="card-title">{{ drink.strDrink }}</h5>
+        <p class="card-text">Bicchiere: {{ drink.strGlass }}</p>
       </div>
     </div>
   </div>
 </div>
 <hr />
+<h2 class="text-center">DRINKS BY LETTER</h2>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li
+      class="page-item"
+      *ngFor="let letter of jsonIn.alphabet"
+      [class.active]="jsonIn.active === letter"
+    >
+      <a class="page-link" (click)="handleLetterPagination(letter)">{{
+        letter
+      }}</a>
+    </li>
+  </ul>
+</nav>
 <div class="d-flex flex-row flex-wrap justify-content-between">
   <div
     *ngFor="let drink of drinks"

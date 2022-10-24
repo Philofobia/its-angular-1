@@ -1,33 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from 'src/app/_service/api.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  drinks:any[] = [];
-  searchDrinks:any[] = [];
-  constructor(private httpClient: HttpClient) {}
+  drinks: any[] = [];
+  drink: any = {};
+  constructor(private apiService: ApiService) {}
 
   jsonIn = {
     searchInput: '',
+    alphabet: ('ABCDEFGHIJKLMNOPQRSTUVWXYZ').split(''),
+    active: "A"
   };
 
-  handleSearch(): void {
-    this.httpClient
-      .get(
-        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${this.jsonIn.searchInput}`
-      )
-      .subscribe((response: any) => {
-        this.searchDrinks = response.drinks;
-      });
-  }
-
-  ngOnInit(): void {
-    this.httpClient
-      .get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a`)
+  handleLetterPagination(letter: string): void {
+    this.apiService
+      .getCocktailByFirstLetter(`${letter}`)
       .subscribe((response: any) => {
         this.drinks = response.drinks;
       });
+      this.jsonIn.active = letter
+  }
+
+  printRandomDrink(): void {
+    this.apiService.getRandomDrink()
+    .subscribe((response: any) => {
+      this.drink = response.drinks[0];
+    })
+  }
+
+  ngOnInit(): void {
+    this.handleLetterPagination('A');
+    this.printRandomDrink();
   }
 }
