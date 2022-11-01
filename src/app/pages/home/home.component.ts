@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_service/api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        this.handleLetterPagination();
+      }
+    });
+  }
   drinks: any[] = [];
   drink: any = {};
 
@@ -17,19 +27,15 @@ export class HomeComponent implements OnInit {
   };
 
   handleLetterPagination(): void {
-    //added a timeout to give time to the page
-    //to register the new parameter from the route
-    setTimeout(() => {
-      const id: string | null = this.route.snapshot.paramMap.get('letterPag');
-      if (id !== null) {
-        this.apiService
-          .getCocktailByFirstLetter(id)
-          .subscribe((response: any) => {
-            this.drinks = response.drinks;
-            this.jsonIn.active = id;
-          });
-      }
-    }, 0);
+    const id: string | null = this.route.snapshot.paramMap.get('letterPag');
+    if (id !== null) {
+      this.apiService
+        .getCocktailByFirstLetter(id)
+        .subscribe((response: any) => {
+          this.drinks = response.drinks;
+          this.jsonIn.active = id;
+        });
+    }
   }
 
   printRandomDrink(): void {
