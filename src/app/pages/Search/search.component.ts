@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_service/api.service';
+import { handleSortingIngredients, handleSortingSearchDrink } from 'src/app/_service/logic';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class SearchComponent implements OnInit {
     this.apiService
       .getCocktailsByInput(`${this.jsonIn.searchInputDrink}`)
       .subscribe((response: any) => {
-        this.searchDrinks = response.drinks;
+        const data = handleSortingSearchDrink(response.drinks);
+        this.searchDrinks = data;
       });
   }
   handleSearchIngr(): void {
@@ -33,7 +35,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     let data: data[] = [];
     this.apiService.getAllIngredients().subscribe((response: any) => {
-      data = response.drinks;
+      data = handleSortingIngredients(response.drinks)
       data.map((el: data) => {
         this.ingredients.push(el.strIngredient1);
       });

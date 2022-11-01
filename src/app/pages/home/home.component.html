@@ -29,9 +29,11 @@
     <li
       class="page-item"
       *ngFor="let letter of jsonIn.alphabet"
+      [routerLink]="'/home/' + letter"
       [class.active]="jsonIn.active === letter"
+      style="cursor: pointer"
     >
-      <a class="page-link" (click)="handleLetterPagination(letter)">{{
+      <a class="page-link" (click)="handleLetterPagination()">{{
         letter
       }}</a>
     </li>

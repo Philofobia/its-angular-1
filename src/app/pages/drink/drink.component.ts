@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnInit,
@@ -11,7 +10,7 @@ import { ApiService } from 'src/app/_service/api.service';
   selector: 'app-drink',
   templateUrl: './drink.component.html',
 })
-export class DrinkComponent implements OnInit, AfterViewInit {
+export class DrinkComponent implements OnInit {
   constructor(private route: ActivatedRoute, private apiService: ApiService) {}
   drink: any = {
     drinkIngr: [],
@@ -21,9 +20,6 @@ export class DrinkComponent implements OnInit, AfterViewInit {
 
   @ViewChild('drinkDescr') drinkDescrizione!: ElementRef;
 
-  ngAfterViewInit = (): void => {
-    // this.drinkDescrizione.nativeElement.textContent = this.drink.drinkInstruction[0].langDes;
-  };
   changeSwitch = (input: number) => {
     for (let i = 0; i < this.drink.drinkInstruction.length; i++) {
       if (i === input) {
