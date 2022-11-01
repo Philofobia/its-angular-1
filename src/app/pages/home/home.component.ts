@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
         this.apiService
           .getCocktailByFirstLetter(id)
           .subscribe((response: any) => {
-            console.log(response.drinks)
             this.drinks = response.drinks;
             this.jsonIn.active = id;
           });
