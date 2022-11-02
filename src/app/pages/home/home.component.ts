@@ -17,18 +17,11 @@ export class HomeComponent implements OnInit {
   };
 
   handleLetterPagination(): void {
-    this.route.paramMap.subscribe((res: any) => {
-      if (res.params.letterPag !== null) {
-        this.jsonIn.active = res.params.letterPag;
-      } else {
-        this.jsonIn.active = 'A';
-      }
-      this.apiService
-        .getCocktailByFirstLetter(this.jsonIn.active)
-        .subscribe((response: any) => {
-          this.drinks = response.drinks;
-        });
-    });
+    this.apiService
+      .getCocktailByFirstLetter(this.jsonIn.active)
+      .subscribe((response: any) => {
+        this.drinks = response.drinks;
+      });
   }
 
   printRandomDrink(): void {
@@ -38,7 +31,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handleLetterPagination();
+    this.route.paramMap.subscribe((res: any) => {
+      if (res.params.letterPag !== null) {
+        this.jsonIn.active = res.params.letterPag;
+      } else {
+        this.jsonIn.active = 'A';
+      }
+      this.handleLetterPagination();
+    });
     this.printRandomDrink();
   }
 }
