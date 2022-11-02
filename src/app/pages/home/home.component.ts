@@ -1,22 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_service/api.service';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private apiService: ApiService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd) {
-        this.handleLetterPagination();
-      }
-    });
-  }
+  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
   drinks: any[] = [];
   drink: any = {};
 
@@ -27,15 +17,18 @@ export class HomeComponent implements OnInit {
   };
 
   handleLetterPagination(): void {
-    const id: string | null = this.route.snapshot.paramMap.get('letterPag');
-    if (id !== null) {
+    this.route.paramMap.subscribe((res: any) => {
+      if (res.params.letterPag !== null) {
+        this.jsonIn.active = res.params.letterPag;
+      } else {
+        this.jsonIn.active = 'A';
+      }
       this.apiService
-        .getCocktailByFirstLetter(id)
+        .getCocktailByFirstLetter(this.jsonIn.active)
         .subscribe((response: any) => {
           this.drinks = response.drinks;
-          this.jsonIn.active = id;
         });
-    }
+    });
   }
 
   printRandomDrink(): void {

@@ -10,7 +10,7 @@ import { IngredientComponent } from './pages/Ingredient/ingredient.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home',   redirectTo: '/home/A', pathMatch: 'full' },
   { path: 'home/:letterPag', component: HomeComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'drink/:idDrink', component: DrinkComponent },
