@@ -7,7 +7,7 @@ export const handleSortingIngredients = (query: any[]): any[] => {
 
 export const handleSortingSearchDrink = (query: any[]): any[] => {
   const orderedQuery = query.sort((a, b) =>
-    a.strDrink.localeCompare(b.strDrink)
+    a.idDrink.localeCompare(b.idDrink)
   );
   return orderedQuery;
 };

@@ -31,9 +31,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((res: any) => {
-      if (res.params.letterPag !== null) {
-        this.jsonIn.active = res.params.letterPag;
+    this.route.paramMap.subscribe((res) => {
+      const letter = res.get('letterPag')
+      if (letter !== null) {
+        this.jsonIn.active = letter;
       } else {
         this.jsonIn.active = 'A';
       }
